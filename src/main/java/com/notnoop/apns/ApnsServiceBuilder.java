@@ -202,10 +202,10 @@ public class ApnsServiceBuilder {
     }
     
 	private void assertPasswordNotEmpty(String password) {
-		if (password == null || password.length() == 0) {
-            throw new IllegalArgumentException("Passwords must be specified." +
-                    "Oracle Java SDK does not support passwordless p12 certificates");
-        }
+//		if (password == null || password.length() == 0) {
+//            throw new IllegalArgumentException("Passwords must be specified." +
+//                    "Oracle Java SDK does not support passwordless p12 certificates");
+//        }
 	}
     
     /**

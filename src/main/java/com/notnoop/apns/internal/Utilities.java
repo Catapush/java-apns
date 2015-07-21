@@ -101,7 +101,7 @@ public final class Utilities {
                // Get a KeyManager and initialize it
                final KeyManagerFactory kmf = KeyManagerFactory.getInstance(ksAlgorithm);
                if (null == password){
-            	   kmf.init(ks, null);
+            	   kmf.init(ks, "".toCharArray());
                }
                else{
             	   kmf.init(ks, password.toCharArray());            	   

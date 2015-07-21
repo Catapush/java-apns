@@ -83,12 +83,7 @@ public final class Utilities {
             final String ksType, final String ksAlgorithm) throws InvalidSSLConfig {
            try {
                final KeyStore ks = KeyStore.getInstance(ksType);
-               if (null == password){
-            	   ks.load(cert, null);
-               }
-               else{
-            	   ks.load(cert, password.toCharArray());
-               }
+               ks.load(cert, password == null ? new char[]{0}:password.toCharArray());
                return newSSLContext(ks, password, ksAlgorithm);
            } catch (final Exception e) {
                throw new InvalidSSLConfig(e);
@@ -100,12 +95,7 @@ public final class Utilities {
            try {
                // Get a KeyManager and initialize it
                final KeyManagerFactory kmf = KeyManagerFactory.getInstance(ksAlgorithm);
-               if (null == password){
-            	   kmf.init(ks, "".toCharArray());
-               }
-               else{
-            	   kmf.init(ks, password.toCharArray());            	   
-               }
+               kmf.init(ks, password == null ? new char[]{0}:password.toCharArray());
 
                // Get a TrustManagerFactory with the DEFAULT KEYSTORE, so we have all
                // the certificates in cacerts trusted

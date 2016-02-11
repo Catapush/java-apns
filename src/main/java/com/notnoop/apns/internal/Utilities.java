@@ -79,23 +79,29 @@ public final class Utilities {
         return context.getSocketFactory();
     }
 
-    public static SSLContext newSSLContext(final InputStream cert, final String password,
+    public static SSLContext newSSLContext(final InputStream cert, String password,
             final String ksType, final String ksAlgorithm) throws InvalidSSLConfig {
            try {
+               if (password == null) {
+                   password = "";
+               }
                final KeyStore ks = KeyStore.getInstance(ksType);
-               ks.load(cert, password == null ? new char[]{0}:password.toCharArray());
+               ks.load(cert, password.toCharArray());
                return newSSLContext(ks, password, ksAlgorithm);
            } catch (final Exception e) {
                throw new InvalidSSLConfig(e);
            }
        }
     
-    public static SSLContext newSSLContext(final KeyStore ks, final String password,
+    public static SSLContext newSSLContext(final KeyStore ks, String password,
             final String ksAlgorithm) throws InvalidSSLConfig {
            try {
+               if (password == null) {
+                   password = "";
+               }
                // Get a KeyManager and initialize it
                final KeyManagerFactory kmf = KeyManagerFactory.getInstance(ksAlgorithm);
-               kmf.init(ks, password == null ? new char[]{0}:password.toCharArray());
+               kmf.init(ks, password.toCharArray());
 
                // Get a TrustManagerFactory with the DEFAULT KEYSTORE, so we have all
                // the certificates in cacerts trusted
